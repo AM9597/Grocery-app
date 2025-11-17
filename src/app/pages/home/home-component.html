@@ -1,0 +1,76 @@
+<div class="bg-blue-500 text-white p-4 rounded">Gurudatta Kriana Nimbhari</div>
+
+<div class="p-4">
+  <!-- Category Tabs -->
+  <div class="flex gap-3 overflow-x-auto mb-6">
+    <button
+      *ngFor="let cat of categories"
+      class="px-4 py-2 rounded-full border transition-colors duration-200"
+      [ngClass]="{
+        'bg-blue-600 text-white': selectedCategory === cat.categoryId,
+        'bg-white text-gray-700 border-gray-300': selectedCategory !== cat.categoryId
+      }"
+      (click)="selectCategory(cat.categoryId)"
+    >
+      {{ cat.categoryName }}
+    </button>
+  </div>
+
+  <!-- Products Grid -->
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+    <div
+      *ngFor="let product of filteredProducts"
+      class="bg-white rounded-xl shadow hover:shadow-lg transition p-4 flex flex-col"
+    >
+      <img
+        [src]="product.imageUrl"
+        class="w-full h-32 object-cover rounded-lg mb-3"
+        alt="{{ product.name }}"
+      />
+      <h3 class="font-semibold text-gray-900 mb-1 text-sm sm:text-base">{{ product.name }}</h3>
+      <p class="text-gray-600 mb-2 text-sm sm:text-base">₹ {{ product.price }}</p>
+      <button
+        class="mt-auto bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-medium transition"
+        (click)="addToCart(product)"
+      >
+        Add to Cart
+      </button>
+    </div>
+  </div>
+
+  <!-- Floating Cart Button -->
+  <button
+    class="fixed bottom-5 right-5 bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-full shadow-lg flex items-center gap-2"
+    (click)="toggleCart()"
+  >
+    <span class="material-icons">shopping_cart</span>
+    Cart ({{ cartService.getCart().length }})
+  </button>
+
+  <!-- Cart Sidebar -->
+  <div
+    *ngIf="showCart"
+    class="fixed top-0 right-0 w-80 h-full bg-white shadow-xl p-4 overflow-y-auto z-50 transition-transform"
+  >
+    <h2 class="text-xl font-semibold mb-4">Your Cart</h2>
+
+    <div *ngIf="cartService.getCart().length === 0" class="text-gray-500">Cart is empty</div>
+
+    <div *ngFor="let item of cartService.getCart()" class="flex justify-between mb-3">
+      <div>
+        <p class="font-medium">{{ item.name }}</p>
+        <p class="text-gray-600 text-sm">Qty: {{ item.quantity }}</p>
+      </div>
+      <p class="font-semibold">₹ {{ item.price * item.quantity }}</p>
+    </div>
+
+    <div class="mt-4">
+      <p class="font-bold text-lg">Total: ₹ {{ cartTotal }}</p>
+      <button
+        class="w-full mt-3 bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-medium"
+      >
+        Checkout
+      </button>
+    </div>
+  </div>
+</div>

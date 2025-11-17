@@ -1,0 +1,19 @@
+<div class="container mx-auto p-4">
+  <h2 class="text-xl font-bold">Your Cart</h2>
+  <div *ngFor="let item of items" class="flex items-center gap-4 p-2 border-b">
+    <img [src]="item.product.imageUrl" class="w-20 h-20 object-cover" />
+    <div class="flex-1">
+      <div>{{ item.product.productName }}</div>
+      <div>₹{{ item.product.price }} x {{ item.qty }} = ₹{{ item.product.price * item.qty }}</div>
+    </div>
+    <div>
+      <input type="number" [(ngModel)]="item.qty" (change)="update(item)" min="1" class="w-20" />
+      <button (click)="remove(item.product.productID)" class="btn mt-2">Remove</button>
+    </div>
+  </div>
+
+  <div class="mt-4 text-right">
+    <h3 class="text-lg font-semibold">Total: ₹{{ total }}</h3>
+    <a routerLink="/checkout" class="btn">Checkout</a>
+  </div>
+</div>

@@ -7,7 +7,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:gurudattaKiranaUi": "node dist/gurudattaKiranaUi/server/server.mjs"
+    "serve:ssr:gurudattaKiranaUi": "node dist/gurudattaKiranaUi/server/server.mjs",
+    "tw:init": "tailwindcss init",
+    "tw:build": "tailwindcss -i src/styles.css -o src/tailwind-output.css --watch"
   },
   "prettier": {
     "printWidth": 100,
@@ -39,15 +41,19 @@
     "@angular/build": "^20.3.10",
     "@angular/cli": "^20.3.10",
     "@angular/compiler-cli": "^20.3.0",
+    "@tailwindcss/postcss7-compat": "^2.2.17",
     "@types/express": "^5.0.1",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^20.17.19",
+    "autoprefixer": "^10.4.22",
     "jasmine-core": "~5.9.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",
     "typescript": "~5.9.2"
   }
 }
